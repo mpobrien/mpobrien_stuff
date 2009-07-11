@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+# This is a script/utility to quickly send a gmail message from the command line.
+# It's based on the code from Kutuma's great blog post:
+# http://kutuma.blogspot.com/2007/08/sending-emails-via-gmail-with-python.html
+# i've just added some code for more advanced control and allowed 
+# entering a password at run time (instead of hardcoding it into the file)
+
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
