@@ -44,9 +44,11 @@ class CornerMaker:
         return img_temp#}}}
 
 def sample():
-    cm = CornerMaker(10, (255,0,0), (255,255,255) )
+    cm = CornerMaker(8, (235,162,36), (255,255,255) )
     cm.top_left(100, 0).save("/home/mike/projects/mpobrien_stuff/tl.png")
     cm.top_right(0, 0).save("/home/mike/projects/mpobrien_stuff/tr.png")
     cm.bottom_left(100, 100).save("/home/mike/projects/mpobrien_stuff/bl.png")
     cm.bottom_right(0, 100).save("/home/mike/projects/mpobrien_stuff/br.png")
+
+if __name__ == '__main__': sample()
 
