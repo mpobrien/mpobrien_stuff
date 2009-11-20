@@ -7,6 +7,7 @@ echo $CLASSPATH
 
 LOG4J_OPTS="-Dlog4j.configuration=log4j.properties" # to change default log level add -Dlog4j.info
 
+
 # get the full path to the jython script
 prg=`pwd`/$0
 prgdir=`dirname $prg`
@@ -24,11 +25,12 @@ export LD_LIBRARY_PATH=/usr/lib64/libreadline-java:$LD_LIBRARY_PATH
 PYOPTS="-Dpython.console=org.python.util.ReadlineConsole -Dpython.console.readlinelib=GnuReadline"
 fi
 
-pypath=/home/mike/jython2.5.1/Lib
+pyhome=/home/mike/jython
+pypath=/home/mike/downloads/Lib:/usr/lib/python2.5:/home/mike/projects/mpobrien_stuff/1.1.X/
 #pypath=/usr/lib/python2.5:/usr/lib/python2.5/plat-linux2:/usr/lib/python2.5/lib-tk:/usr/lib/python2.5/lib-dynload:/usr/local/lib/python2.5/site-packages:/usr/lib/python2.5/site-packages:/usr/lib/python2.5/site-packages/Numeric:/usr/lib/python2.5/site-packages/PIL:/usr/lib/python2.5/site-packages/gst-0.10:/var/lib/python-support/python2.5:/usr/lib/python2.5/site-packages/gtk-2.0
 
 
 # SSL keystore options
 SSL_OPTS="-Djavax.net.ssl.trustStore=/usr/local/meetup_api/conf/localdev/ssl/devcacerts"
 # exec, and also allow python access to private vars
-exec java -cp $CLASSPATH $SSL_OPTS $LOG4J_OPTS -D"python.security.respectJavaAccessibility=false" -D"python.cachedir=$cachedir"  -D"python.cachedir.skip=$cacheskip" -D"python.path=$pypath" $PYOPTS org.python.util.jython "$@"     
+exec java -cp $CLASSPATH $SSL_OPTS $LOG4J_OPTS -D"python.security.respectJavaAccessibility=false" -D"python.cachedir=$cachedir"  -D"python.cachedir.skip=$cacheskip" -D"python.home=$pyhome" -D"python.path=$pypath" -D"python.executable=$0" $PYOPTS org.python.util.jython "$@"     

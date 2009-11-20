@@ -5,7 +5,7 @@ from org.apache.lucene.index import *;
 from org.apache.lucene.queryParser import *;
 from org.apache.lucene.search import *;
 from org.apache.lucene.store import *;
-#import re
+import re
 from java.lang import String
 
 alltenses = [('present',6),
@@ -24,14 +24,18 @@ pronouns = ["i", "youinformal", "hesheyou", "we", "youvos", "theyyoupl"]
 
 
 def indexfile(f, w):
+    i = 0
     for line in f:
-        words = String(line.strip()).split('\s+')
+        words = re.split('\s*',line.strip())
         if len(words) != 50:
             print "skipping " , words
+            print len(words)
             continue
         else:
             d = createDoc(words)
             w.addDocument( d )
+        print i
+        i += 1
 
 def createDoc(words):
     doc = Document()
@@ -47,14 +51,17 @@ def createDoc(words):
         doc.add(Field("all", ' '.join(words), Field.Store.NO, Field.Index.TOKENIZED))
     return doc
 
+print "here we go"
+
 if __name__ == '__main__':
+    print "opening index"
     index = FSDirectory.getDirectory('/home/mike/projects/mpobrien_stuff/index/wordindex');
     #w = IndexWriter(index, WhitespaceAnalyzer(), True, IndexWriter.MaxFieldLength.UNLIMITED);
     #rawdata = open('/home/mike/projects/mpobrien_stuff/output.txt','r')
     #indexfile(rawdata, w)
     #w.close();
 
-    q = QueryParser("all", WhitespaceAnalyzer()).parse('es')
+    q = QueryParser("all", WhitespaceAnalyzer()).parse('une')
     searcher = IndexSearcher(index);
     collector = TopDocCollector( 10 ); #hits per page
     searcher.search(q, collector);

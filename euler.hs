@@ -1,19 +1,13 @@
-<<<<<<< HEAD:euler.hs
 import Data.Maybe
 -- ONE
-=======
 import Data.List
 import Char
->>>>>>> 5c2849fde86508c3d502eb7ca32129ae84018b31:euler.hs
 euler_one = sum ( filter ( isMultiple ) [1..999] ) where isMultiple x = mod x 5 == 0 || mod x 3 == 0
 
 -- TWO
 
 fibList xs n n1 = if ( n + n1 ) > 4000000 then xs else fibList (xs ++ [n+n1]) (n1) (n+n1)
 euler_two = sum ( filter ( even ) ( fibList [] 0 1 ) )
-
-isDivisibleBy :: Integer -> Integer -> Bool
-isDivisibleBy x n = x `mod` n == 0 -- return True if x is divisible by n
 
 isComposite x = any ( isDivisibleBy x ) [2..floor (sqrt ( fromIntegral x ) )]
 isPrime x = not ( isComposite x )
@@ -33,7 +27,7 @@ mapper x = (\x -> map (*x) y  ) where y = [1..999]
 converter :: String -> Integer
 converter s = read s
 --euler_three = maximum ( map (converter) (filter (isPalindrome ) (map show ( concat products ) )) 
-euler_three = maximum ( map converter ( filter isPalindrome (map show ( concat products ) )  ) )
+--euler_three = maximum ( map converter ( filter isPalindrome (map show ( concat products ) )  ) )
 
 
 --Five
@@ -44,11 +38,11 @@ euler_five = find ( isDivisibleByAll ) [232792550..232792570]
 --find the difference between the sum of the squares of the first 100 natural numbers and the square of the sum
 euler_six = sum ( map ( **2 ) [1..100] ) - (( sum [1..100] ) **2 )
 
-isComposite :: Integer -> Bool
-isComposite 1 = True
-isComposite x = any ( isDivisibleBy x ) [ 2 .. floor(sqrt(fromIntegral x)) ]
-                where isDivisibleBy x n = x `mod` n == 0
-isPrime x = not ( isComposite x )
+--isComposite :: Integer -> Bool
+--isComposite 1 = True
+--isComposite x = any ( isDivisibleBy x ) [ 2 .. floor(sqrt(fromIntegral x)) ]
+                --where isDivisibleBy x n = x `mod` n == 0
+--isPrime x = not ( isComposite x )
 
 euler_seven = last ( take 10001 ( primeNums ) )
                     where primeNums = filter isPrime [1..] 
@@ -63,3 +57,18 @@ euler_eight = maximum( map ( mult ) ( map ( map (digitToInt) ) ( nextFiveDigits 
 euler_ten = sum ( allPrimes )
                 where allPrimes = filter ( isPrime ) [1..2000000]
 
+primes = sieve [2..]
+sieve ( p : xs ) = p : sieve [ x | x <- xs, x `mod` p > 0 ]
+
+
+euler_whatever =  sum $ map digitToInt $ show $ product [1..100]
+
+fib n | n==1 || n ==2 = 1
+fib n = fib (n-2) + fib (n-1)
+euler_25' n n1 i = if numDigitsInAnswer > 999 then (i, newFib)
+                    else euler_25' newFib n (i+1)
+                        where numDigitsInAnswer = length $ show newFib
+                              newFib = n+n1
+
+euler_shit = reverse $ take 10 $ reverse $ show $ sum ( map (\x -> x^x) [1..1000] )
+        
