@@ -1,8 +1,8 @@
-set guifont=Monospace\ 9
+set visualbell
+set noerrorbells
 set nocompatible
 syntax on
 set autoindent
-set smartindent
 set expandtab
 set tabstop=4
 set softtabstop=4
@@ -29,12 +29,17 @@ else
 endif
 
 set winminheight=0
-map <C-k> <C-W>k<C-W>_
-map <C-j> <C-W>j<C-W>_
-imap <C-h> <esc>:tabp<CR>i
-imap <C-l> <esc>:tabn<CR>i
-map <C-h> :tabp<CR>
-map <C-l> :tabn<CR>
+
+	map <C-J> <C-W>j<C-W>_
+	map <C-K> <C-W>k<C-W>_
+	map <C-L> <C-W>l<C-W>_
+	map <C-H> <C-W>h<C-W>_
+	map <C-K> <C-W>k<C-W>_
+    nnoremap j gj
+    nnoremap k gk
+	map <S-H> gT
+	map <S-L> gt
+
 
 autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
@@ -88,3 +93,8 @@ function! SetupScreen(s)
     let g:screen_sessionname = a:s
     let g:screen_windowname = "1"
 endfunction
+
+nmap ,t :NERDTree<Enter>
+
+set guifont=Menlo:h12
+
